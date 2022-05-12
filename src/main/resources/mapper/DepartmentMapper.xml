@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hut.jsj.mapper.DepartmentMapper">
+
+    <select id="findAll" resultType="department" >
+        select department,departid from department;
+    </select>
+
+    <select id="findTeacher" resultType="department">
+        select department,departid from  department where department like '%学院' and Deptype=4 and departid not in(421,424,425)
+    </select>
+
+    <select id="findspecial" resultType="department" parameterType="string">
+        select department,departid from department where applyflag = 1 and department  = #{department}
+    </select>
+
+</mapper>

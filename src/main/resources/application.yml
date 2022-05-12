@@ -1,0 +1,77 @@
+spring:
+  datasource:
+    #sqlserver的连接地址
+    #driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    #url: jdbc:sqlserver://172.22.224.60:1433;DatabaseName=GXKH2021
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    #url: jdbc:mysql://8.135.101.129:3306/GXKH2021?serverTimezone=Asia/Shanghai
+    #url: jdbc:mysql://localhost:3306/gxkh2021?serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://172.16.10.223:33066/gxkh2021?serverTimezone=Asia/Shanghai
+
+    username: root
+    #password: 123456
+    password: Hut@jsj@7710
+    #username: jxkh
+    #password: Jxkh-22183305
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      druid:
+        #初始化大小
+        initial-size: 5
+        #最多支持多少个活动会话
+        max-active: 50
+        #最小连接个数
+        min-idle: 1
+        #配置获取连接等待超时的时间，单位是毫秒
+        max-wait: 60000
+        #配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+        time-between-eviction-runs-millis: 60000
+        #配置一个连接池最小的生存时间，单位是毫秒
+        min-evictable-idle-time-millis: 300000
+        # 用来检测连接是否有效的sql，要求是一个查询语句。
+        # 如果validationQuery为null，testOnBorrow、testOnReturn、testWhileIdle都不会起作用
+        validation-query: SELECT 1
+        # 建议配置为true，不影响性能，并且保证安全性。
+        # 申请连接的时候检测，如果空闲时间大于timeBetweenEvictionRunsMillis，执行validationQuery检测连接是否有效。
+        test-while-idle: true
+        # 申请连接时执行validationQuery检测连接是否有效，做了这个配置会降低性能
+        test-on-borrow: false
+        # 归还连接时执行validationQuery检测连接是否有效，做了这个配置会降低性能
+        test-on-return: false
+        # 打开PSCache，并且指定每个连接上PSCache的大小
+        pool-prepared-statements: true
+        max-pool-prepared-statement-per-connection-size: 20
+        # 通过别名的方式配置扩展插件，多个英文逗号分隔，常用的插件有：
+        #监控统计用的filter:stat
+        # 日志用的filter:log4j
+        # 防御sql注入的filter:wall
+        #如果没有配置日志，就不要写log4j，如果使用的是slf4j，把log4j改成slf4j
+        filters: stat,wall
+        # 通过connectProperties属性来打开mergeSql功能；慢SQL记录
+        connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+        # 合并多个DruidDataSource的监控数据
+        useGlobalDataSourceStat: true
+
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 20MB
+
+
+  redis:
+    host: 172.16.10.223
+    port: 6379
+    #password: hut123
+    password: pty123
+
+
+mybatis:
+  type-aliases-package: com.hut.jsj.pojo;com.hut.jsj.vo
+  mapper-locations: classpath:mapper/*
+  #configuration:
+    #log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+
+server:
+  port: 8001
+

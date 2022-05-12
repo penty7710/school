@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hut.jsj.mapper.PdfMapper">
+
+   <insert id="insert" parameterType="String">
+       insert into pdf (name,addr) values (#{name},#{addres})
+   </insert>
+
+    <select id="findPdf" resultType="String" parameterType="String">
+        select addr from pdf where name = #{name}
+    </select>
+
+    <delete id="delete" parameterType="String">
+        delete from pdf where name=#{name}
+    </delete>
+
+    <insert id="insertapplytype">
+        insert into applytype (idcard,applydepartment,applylevel,applycode)values(#{idcard},#{applydepartment},#{applylevel},#{applycode})
+    </insert>
+
+    <insert id="insertgltype" parameterType="GlType">
+        insert into gltype (idcard,applylevel,applydepartment) values(#{idcard},#{applylevel},#{applydepartment})
+    </insert>
+
+    <delete id="deleteapplytype" parameterType="string">
+        delete from applytype where idcard = #{idcard}
+    </delete>
+
+    <delete id="deletegltype" parameterType="string">
+        delete from gltype where idcard =#{idcard}
+    </delete>
+</mapper>

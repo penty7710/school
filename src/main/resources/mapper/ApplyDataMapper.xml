@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hut.jsj.mapper.ApplyDataMapper">
+  <resultMap id="BaseResultMap" type="com.hut.jsj.pojo.ApplyData">
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="datatype" jdbcType="INTEGER" property="datatype" />
+    <result column="Idcard" jdbcType="NVARCHAR" property="idcard" />
+    <result column="gettime" jdbcType="NVARCHAR" property="gettime" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="rank" jdbcType="NVARCHAR" property="rank" />
+    <result column="group" jdbcType="VARCHAR" property="group" />
+    <result column="code" jdbcType="NVARCHAR" property="code" />
+    <result column="checkstatus" jdbcType="NVARCHAR" property="checkstatus" />
+    <result column="checktime" jdbcType="TIMESTAMP" property="checktime" />
+    <result column="checkpeople" jdbcType="NVARCHAR" property="checkpeople" />
+    <result column="IntoTime" jdbcType="TIMESTAMP" property="intotime" />
+  </resultMap>
+  <insert id="insert" parameterType="list">
+    insert into applydata (id, datatype, Idcard,
+        checkstatus, checktime, checkpeople, IntoTime,
+        gettime,`name`,`rank`,`group`,`code`
+      )
+      values (#{id},#{datatype},#{idcard},#{checkstatus},#{checktime},
+              #{checkpeople},#{intotime},#{publishtime},#{name},
+              #{rank},#{group},#{code})
+  </insert>
+
+  <delete id="deleteapplydata" parameterType="string">
+    delete from applydata where idcard = #{idcard}
+  </delete>
+
+
+  <insert id="insertSelective" parameterType="com.hut.jsj.pojo.ApplyData">
+    insert into applydata
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="datatype != null">
+        datatype,
+      </if>
+      <if test="idcard != null">
+        Idcard,
+      </if>
+      <if test="gettime != null">
+        gettime,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="rank != null">
+        rank,
+      </if>
+      <if test="group != null">
+        group,
+      </if>
+      <if test="code != null">
+        code,
+      </if>
+      <if test="checkstatus != null">
+        checkstatus,
+      </if>
+      <if test="checktime != null">
+        checktime,
+      </if>
+      <if test="checkpeople != null">
+        checkpeople,
+      </if>
+      <if test="intotime != null">
+        IntoTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="datatype != null">
+        #{datatype,jdbcType=INTEGER},
+      </if>
+      <if test="idcard != null">
+        #{idcard,jdbcType=NVARCHAR},
+      </if>
+      <if test="gettime != null">
+        #{gettime,jdbcType=NVARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="rank != null">
+        #{rank,jdbcType=NVARCHAR},
+      </if>
+      <if test="group != null">
+        #{group,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null">
+        #{code,jdbcType=NVARCHAR},
+      </if>
+      <if test="checkstatus != null">
+        #{checkstatus,jdbcType=NVARCHAR},
+      </if>
+      <if test="checktime != null">
+        #{checktime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="checkpeople != null">
+        #{checkpeople,jdbcType=NVARCHAR},
+      </if>
+      <if test="intotime != null">
+        #{intotime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+</mapper>

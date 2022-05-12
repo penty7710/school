@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hut.jsj.mapper.InfoMapper">
+    <!--一对多查询，一个对象里面封装了另一个对象的集合，id表示这个resultmap的名字，
+        在下面使用resultMap时填写这个名字，type表示对应的程序中的实体类的名字-->
+    <resultMap id="xzlevelMap" type="xzlevel">
+        <!--property表示pojo实体类中的字段名，column表示数据库中对应的字段名，注意大小写-->
+        <result property="levelno" column="LevelNo"/>
+        <result property="xzlevel" column="XZLevel"/>
+        <!--collection一对多关系，property表示在pojo实体类中对应的字段名
+               javatype表示返回信息的数据类型，oftype表示具体的实体类-->
+        <collection property="gradeInfos" javaType="list" ofType="String">
+            <result property="levelname" column="LevelName"/>
+        </collection>
+    </resultMap>
+
+    <select id="findBycode"   resultType="option">
+        SELECT
+            a.CodeNo,
+            a.`Describe`
+        FROM
+            optioncode a,
+            gradeinfo b
+        WHERE
+            b.LevelName = #{levelname}
+          AND
+            a.Allowcode like concat('%',b.GradeNo,'%')
+    </select>
+
+    <select id="getlevelnames" resultType="gradeinfo">
+        SELECT
+            GradeNo,
+            LevelName,
+            LevelNo
+        FROM
+            gradeinfo
+        WHERE
+            LevelNo BETWEEN #{levelno}
+                AND ( SELECT MAX( LEVELNO ) FROM gradeinfo WHERE LevelNo LIKE concat(#{start},'%'));
+    </select>
+
+    <select id="findbxtj" resultType="bxtj" >
+        SELECT
+            gwname,
+            content,
+            tablehead,
+            count
+        FROM
+            tjcontroll
+        WHERE
+            CodeNo  <![CDATA[ <= ]]> #{codeno}
+          AND tjtype = '必选条件'
+          AND CodeNo like concat(#{start},'%');
+    </select>
+
+    <select id="findxzlevel" resultMap="xzlevelMap" parameterType="String">
+        SELECT
+            a.LEVELNO,
+            a.XZLevel,
+            b.LevelName
+        FROM
+            xzlevel a,gradeinfo b where a.LevelNo >=#{levelNo} and a.LevelNo = b.LevelNo
+        ORDER BY
+            a.LevelNo ASC;
+    </select>
+
+    <select id="findgrlevel" resultMap="xzlevelMap" parameterType="String">
+        SELECT
+            a.LevelNo,
+            a.LevelName XZLevel,
+            b.LevelName
+        FROM
+        grlevel a, gradeinfo b where a.LevelNo >=#{grlevel} and a.LevelNo= b.LevelNo
+        ORDER BY
+            a.LevelNo ASC,
+                 <!--SQLServer和mysql对这里的排序不一样，mysql默认2档在前，因此需要对LevelName进行排序-->
+            LevelName ASC;
+    </select>
+
+    <select id="getDescribe" resultType="optioncode">
+        select CodeNo,`Describe`,typename,count,tablehead from optioncode
+        where  CodeNo in
+        <foreach collection="list" item="item" index="index" separator="," open="(" close=")">
+                  #{item}
+         </foreach>
+    </select>
+
+    <!--查询非教师的职称-->
+    <select id="findfteacher" resultType="gradeinfo" parameterType="String">
+        select GradeNo,GradeName,LevelName from gradeinfo where LevelNo BETWEEN #{zyjslevel2}
+         and (select max(LEVELNO) from gradeinfo where LevelNo like '2%')
+    </select>
+
+    <select id="getrxtj" resultType="rxtj">
+        select worktime,content form tjcontroll where gwname=#{gwname}
+    </select>
+
+    <select id="findCodeNo" parameterType="string" resultType="int">
+        select DISTINCT CodeNo from tjcontroll where gwname=#{levelname}
+    </select>
+
+    <select id="getWorkstatu" parameterType="String" resultType="workstatu">
+        select starttime,content,count from workstatus where Idcard = #{idcard};
+    </select>
+
+    <select id="getBxtj" parameterType="string" resultType="Second">
+        SELECT
+            a.applylevel,
+            a.applydepartment,
+            b. `name`,
+            b.gettime,
+            b.rank,
+            b.`group`
+        FROM
+            applytype a
+                LEFT JOIN applydata b ON a.idcard = b.idcard
+                AND b.`code` =""
+        WHERE
+            a.idcard = #{idcard}
+    </select>
+
+    <select id="getCode" parameterType="string" resultType="string">
+        select applycode from applytype where idcard = #{idcard};
+    </select>
+
+    <select id="findRxtj" resultType="second">
+        SELECT
+            a.applylevel,
+            a.applydepartment,
+            b. `name`,
+            b.gettime,
+            b.rank,
+            b.`group`
+        FROM
+            applytype a
+                right JOIN applydata b ON a.idcard = b.idcard
+        WHERE
+            a.idcard = #{idcard}
+    </select>
+
+</mapper>

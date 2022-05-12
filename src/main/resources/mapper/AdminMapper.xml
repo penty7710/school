@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hut.jsj.mapper.AdminMapper">
+
+    <select id="findByusername" parameterType="string" resultType="userdata">
+        select * from userdata where (idcard=#{username} or teacherId = #{username}) and (power =1 or power =2)
+    </select>
+
+    <insert id="addAdmin" parameterType="string">
+        update userdata set power = 2 where idcard=#{idcard} or teacherId=#{idcard}
+    </insert>
+
+    <update id="ucleanpwd" parameterType="string">
+        update userdata set pwd = "000000" where teacherId = #{teacherId} or idCard = #{teacherId}
+    </update>
+
+
+    <select id="findfiling"  parameterType="string" resultType="userfiling">
+    select `name`,sex,idcard,brith,`write` from userdata
+    <if test="department!=null">
+        where department=#{department}
+    </if>
+    </select>
+
+    <select id="filingforschool" resultType="userfiling">
+        select `name`,sex,idcard,brith,`write` from userdata
+    </select>
+
+    <select id="audit1" resultType="applytypes">
+        SELECT
+            a.`name`,
+            a.idcard,
+            a.department,
+            a.zyjsname1,
+            a.pzdate1,
+            a.tzigeid,
+            b.applylevel,
+            b.applycode
+        FROM
+            userdata a,
+            applytype b
+        WHERE
+              a.Idcard = b.idcard
+            <if test="department !=null">
+                AND b.applydepartment = #{department}
+            </if>
+    </select>
+
+    <select id="audit2" resultType="gltypes">
+        SELECT
+            a.`name`,
+            a.idcard,
+            a.department,
+            a.zw,
+            a.GRJSName,
+            a.worktime,
+            b.applylevel
+        FROM
+            userdata a,
+            gltype b
+        WHERE
+            a.Idcard = b.idcard
+        <if test="department!=null">
+            AND b.applydepartment = #{department}
+        </if>
+    </select>
+
+    <update id="save1"  parameterType="string">
+            update applytype set  ensurecode = #{ensurecode},bz=#{bz} ,ensurelevel = #{ensurelevel} where idcard = #{idcard}
+
+    </update>
+
+    <update id="save2" parameterType="string">
+        update gltype    set idea = #{idea},bz=#{bz} where idcard = #{idcard}
+
+    </update>
+
+</mapper>

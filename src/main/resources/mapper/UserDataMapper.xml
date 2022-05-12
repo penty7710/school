@@ -1,0 +1,480 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hut.jsj.mapper.UserDataMapper">
+  <resultMap id="BaseResultMap" type="com.hut.jsj.pojo.UserData">
+    <id column="Idcard" jdbcType="VARCHAR" property="idcard" />
+    <result column="teacherID" jdbcType="NVARCHAR" property="teacherid" />
+    <result column="pwd" jdbcType="VARCHAR" property="pwd" />
+    <result column="name" jdbcType="NVARCHAR" property="name" />
+    <result column="sex" jdbcType="NVARCHAR" property="sex" />
+    <result column="brith" jdbcType="DATE" property="brith" />
+    <result column="MZ" jdbcType="VARCHAR" property="mz" />
+    <result column="department" jdbcType="NVARCHAR" property="department" />
+    <result column="departmentNo" jdbcType="INTEGER" property="departmentno" />
+    <result column="template" jdbcType="INTEGER" property="template" />
+    <result column="Flag" jdbcType="INTEGER" property="flag" />
+    <result column="TzigeID" jdbcType="NVARCHAR" property="tzigeid" />
+    <result column="health" jdbcType="NVARCHAR" property="health" />
+    <result column="skilljob" jdbcType="NVARCHAR" property="skilljob" />
+    <result column="getdate" jdbcType="DATE" property="getdate" />
+    <result column="skillnum" jdbcType="NVARCHAR" property="skillnum" />
+    <result column="teachernum" jdbcType="NVARCHAR" property="teachernum" />
+    <result column="vip" jdbcType="INTEGER" property="vip" />
+    <result column="joblevel" jdbcType="NVARCHAR" property="joblevel" />
+    <result column="local" jdbcType="NVARCHAR" property="local" />
+    <result column="applytype" jdbcType="INTEGER" property="applytype" />
+    <result column="workyear" jdbcType="NVARCHAR" property="workyear" />
+    <result column="ZW" jdbcType="NVARCHAR" property="zw" />
+    <result column="XZlevel" jdbcType="NVARCHAR" property="xzlevel" />
+    <result column="LXtime" jdbcType="DATE" property="lxtime" />
+    <result column="worktime" jdbcType="DATE" property="worktime" />
+    <result column="GRJSName" jdbcType="NVARCHAR" property="grjsname" />
+    <result column="GRJSlevel" jdbcType="INTEGER" property="grjslevel" />
+    <result column="ZYJSname1" jdbcType="NVARCHAR" property="zyjsname1" />
+    <result column="ZYJSLevel1" jdbcType="INTEGER" property="zyjslevel1" />
+    <result column="PZdate1" jdbcType="DATE" property="pzdate1" />
+    <result column="ZClevel" jdbcType="NVARCHAR" property="zclevel" />
+    <result column="ZYJSname2" jdbcType="NVARCHAR" property="zyjsname2" />
+    <result column="ZYJSLevel2" jdbcType="INTEGER" property="zyjslevel2" />
+    <result column="PZdate2" jdbcType="DATE" property="pzdate2" />
+    <result column="NDKHstatus" jdbcType="NVARCHAR" property="ndkhstatus" />
+    <result column="power" jdbcType="INTEGER" property="power" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    Idcard, teacherID, pwd, name, sex, brith, MZ, department, departmentNo, template, 
+    Flag, TzigeID, health, skilljob, getdate, skillnum, teachernum, vip, joblevel, local, 
+    applytype, workyear, ZW, XZlevel, LXtime, worktime, GRJSName, GRJSlevel, ZYJSname1, 
+    ZYJSLevel1, PZdate1, ZClevel, ZYJSname2, ZYJSLevel2, PZdate2, NDKHstatus, power
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from userdata
+    where Idcard = #{idcard,jdbcType=VARCHAR}
+  </select>
+
+  <select id="findByidcard" parameterType="String" resultType="userdata">
+    select * from userdata where Idcard = #{idcard} or teacherId=#{idcard}
+  </select>
+
+  <update id="updatewrite" parameterType="string">
+    update userdata set `write` = 1 where idcard = #{idcard}
+  </update>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from userdata
+    where Idcard = #{idcard,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.hut.jsj.pojo.UserData">
+    insert into userdata (Idcard, teacherID, pwd,
+      name, sex, brith, MZ, 
+      department, departmentNo, template, 
+      Flag, TzigeID, health, 
+      skilljob, getdate, skillnum, 
+      teachernum, vip, joblevel, 
+      local, applytype, workyear, 
+      ZW, XZlevel, LXtime, 
+      worktime, GRJSName, GRJSlevel, 
+      ZYJSname1, ZYJSLevel1, PZdate1, 
+      ZClevel, ZYJSname2, ZYJSLevel2, 
+      PZdate2, NDKHstatus, power
+      )
+    values (#{idcard,jdbcType=VARCHAR}, #{teacherid,jdbcType=NVARCHAR}, #{pwd,jdbcType=VARCHAR}, 
+      #{name,jdbcType=NVARCHAR}, #{sex,jdbcType=NVARCHAR}, #{brith,jdbcType=DATE}, #{mz,jdbcType=VARCHAR}, 
+      #{department,jdbcType=NVARCHAR}, #{departmentno,jdbcType=INTEGER}, #{template,jdbcType=INTEGER}, 
+      #{flag,jdbcType=INTEGER}, #{tzigeid,jdbcType=NVARCHAR}, #{health,jdbcType=NVARCHAR}, 
+      #{skilljob,jdbcType=NVARCHAR}, #{getdate,jdbcType=DATE}, #{skillnum,jdbcType=NVARCHAR}, 
+      #{teachernum,jdbcType=NVARCHAR}, #{vip,jdbcType=INTEGER}, #{joblevel,jdbcType=NVARCHAR}, 
+      #{local,jdbcType=NVARCHAR}, #{applytype,jdbcType=INTEGER}, #{workyear,jdbcType=NVARCHAR}, 
+      #{zw,jdbcType=NVARCHAR}, #{xzlevel,jdbcType=NVARCHAR}, #{lxtime,jdbcType=DATE}, 
+      #{worktime,jdbcType=DATE}, #{grjsname,jdbcType=NVARCHAR}, #{grjslevel,jdbcType=INTEGER}, 
+      #{zyjsname1,jdbcType=NVARCHAR}, #{zyjslevel1,jdbcType=INTEGER}, #{pzdate1,jdbcType=DATE}, 
+      #{zclevel,jdbcType=NVARCHAR}, #{zyjsname2,jdbcType=NVARCHAR}, #{zyjslevel2,jdbcType=INTEGER}, 
+      #{pzdate2,jdbcType=DATE}, #{ndkhstatus,jdbcType=NVARCHAR}, #{power,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hut.jsj.pojo.UserData">
+    insert into userdata
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="idcard != null">
+        Idcard,
+      </if>
+      <if test="teacherid != null">
+        teacherID,
+      </if>
+      <if test="pwd != null">
+        pwd,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="sex != null">
+        sex,
+      </if>
+      <if test="brith != null">
+        brith,
+      </if>
+      <if test="mz != null">
+        MZ,
+      </if>
+      <if test="department != null">
+        department,
+      </if>
+      <if test="departmentno != null">
+        departmentNo,
+      </if>
+      <if test="template != null">
+        template,
+      </if>
+      <if test="flag != null">
+        Flag,
+      </if>
+      <if test="tzigeid != null">
+        TzigeID,
+      </if>
+      <if test="health != null">
+        health,
+      </if>
+      <if test="skilljob != null">
+        skilljob,
+      </if>
+      <if test="getdate != null">
+        getdate,
+      </if>
+      <if test="skillnum != null">
+        skillnum,
+      </if>
+      <if test="teachernum != null">
+        teachernum,
+      </if>
+      <if test="vip != null">
+        vip,
+      </if>
+      <if test="joblevel != null">
+        joblevel,
+      </if>
+      <if test="local != null">
+        local,
+      </if>
+      <if test="applytype != null">
+        applytype,
+      </if>
+      <if test="workyear != null">
+        workyear,
+      </if>
+      <if test="zw != null">
+        ZW,
+      </if>
+      <if test="xzlevel != null">
+        XZlevel,
+      </if>
+      <if test="lxtime != null">
+        LXtime,
+      </if>
+      <if test="worktime != null">
+        worktime,
+      </if>
+      <if test="grjsname != null">
+        GRJSName,
+      </if>
+      <if test="grjslevel != null">
+        GRJSlevel,
+      </if>
+      <if test="zyjsname1 != null">
+        ZYJSname1,
+      </if>
+      <if test="zyjslevel1 != null">
+        ZYJSLevel1,
+      </if>
+      <if test="pzdate1 != null">
+        PZdate1,
+      </if>
+      <if test="zclevel != null">
+        ZClevel,
+      </if>
+      <if test="zyjsname2 != null">
+        ZYJSname2,
+      </if>
+      <if test="zyjslevel2 != null">
+        ZYJSLevel2,
+      </if>
+      <if test="pzdate2 != null">
+        PZdate2,
+      </if>
+      <if test="ndkhstatus != null">
+        NDKHstatus,
+      </if>
+      <if test="power != null">
+        power,
+      </if>
+    </trim>
+
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="idcard != null">
+        #{idcard,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherid != null">
+        #{teacherid,jdbcType=NVARCHAR},
+      </if>
+      <if test="pwd != null">
+        #{pwd,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=NVARCHAR},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=NVARCHAR},
+      </if>
+      <if test="brith != null">
+        #{brith,jdbcType=DATE},
+      </if>
+      <if test="mz != null">
+        #{mz,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null">
+        #{department,jdbcType=NVARCHAR},
+      </if>
+      <if test="departmentno != null">
+        #{departmentno,jdbcType=INTEGER},
+      </if>
+      <if test="template != null">
+        #{template,jdbcType=INTEGER},
+      </if>
+      <if test="flag != null">
+        #{flag,jdbcType=INTEGER},
+      </if>
+      <if test="tzigeid != null">
+        #{tzigeid,jdbcType=NVARCHAR},
+      </if>
+      <if test="health != null">
+        #{health,jdbcType=NVARCHAR},
+      </if>
+      <if test="skilljob != null">
+        #{skilljob,jdbcType=NVARCHAR},
+      </if>
+      <if test="getdate != null">
+        #{getdate,jdbcType=DATE},
+      </if>
+      <if test="skillnum != null">
+        #{skillnum,jdbcType=NVARCHAR},
+      </if>
+      <if test="teachernum != null">
+        #{teachernum,jdbcType=NVARCHAR},
+      </if>
+      <if test="vip != null">
+        #{vip,jdbcType=INTEGER},
+      </if>
+      <if test="joblevel != null">
+        #{joblevel,jdbcType=NVARCHAR},
+      </if>
+      <if test="local != null">
+        #{local,jdbcType=NVARCHAR},
+      </if>
+      <if test="applytype != null">
+        #{applytype,jdbcType=INTEGER},
+      </if>
+      <if test="workyear != null">
+        #{workyear,jdbcType=NVARCHAR},
+      </if>
+      <if test="zw != null">
+        #{zw,jdbcType=NVARCHAR},
+      </if>
+      <if test="xzlevel != null">
+        #{xzlevel,jdbcType=NVARCHAR},
+      </if>
+      <if test="lxtime != null">
+        #{lxtime,jdbcType=DATE},
+      </if>
+      <if test="worktime != null">
+        #{worktime,jdbcType=DATE},
+      </if>
+      <if test="grjsname != null">
+        #{grjsname,jdbcType=NVARCHAR},
+      </if>
+      <if test="grjslevel != null">
+        #{grjslevel,jdbcType=INTEGER},
+      </if>
+      <if test="zyjsname1 != null">
+        #{zyjsname1,jdbcType=NVARCHAR},
+      </if>
+      <if test="zyjslevel1 != null">
+        #{zyjslevel1,jdbcType=INTEGER},
+      </if>
+      <if test="pzdate1 != null">
+        #{pzdate1,jdbcType=DATE},
+      </if>
+      <if test="zclevel != null">
+        #{zclevel,jdbcType=NVARCHAR},
+      </if>
+      <if test="zyjsname2 != null">
+        #{zyjsname2,jdbcType=NVARCHAR},
+      </if>
+      <if test="zyjslevel2 != null">
+        #{zyjslevel2,jdbcType=INTEGER},
+      </if>
+      <if test="pzdate2 != null">
+        #{pzdate2,jdbcType=DATE},
+      </if>
+      <if test="ndkhstatus != null">
+        #{ndkhstatus,jdbcType=NVARCHAR},
+      </if>
+      <if test="power != null">
+        #{power,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hut.jsj.pojo.UserData">
+    update UserData
+    <set>
+      <if test="teacherid != null">
+        teacherID = #{teacherid,jdbcType=NVARCHAR},
+      </if>
+      <if test="pwd != null">
+        pwd = #{pwd,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=NVARCHAR},
+      </if>
+      <if test="sex != null">
+        sex = #{sex,jdbcType=NVARCHAR},
+      </if>
+      <if test="brith != null">
+        brith = #{brith,jdbcType=DATE},
+      </if>
+      <if test="mz != null">
+        MZ = #{mz,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null">
+        department = #{department,jdbcType=NVARCHAR},
+      </if>
+      <if test="departmentno != null">
+        departmentNo = #{departmentno,jdbcType=INTEGER},
+      </if>
+      <if test="template != null">
+        template = #{template,jdbcType=INTEGER},
+      </if>
+      <if test="flag != null">
+        Flag = #{flag,jdbcType=INTEGER},
+      </if>
+      <if test="tzigeid != null">
+        TzigeID = #{tzigeid,jdbcType=NVARCHAR},
+      </if>
+      <if test="health != null">
+        health = #{health,jdbcType=NVARCHAR},
+      </if>
+      <if test="skilljob != null">
+        skilljob = #{skilljob,jdbcType=NVARCHAR},
+      </if>
+      <if test="getdate != null">
+        getdate = #{getdate,jdbcType=DATE},
+      </if>
+      <if test="skillnum != null">
+        skillnum = #{skillnum,jdbcType=NVARCHAR},
+      </if>
+      <if test="teachernum != null">
+        teachernum = #{teachernum,jdbcType=NVARCHAR},
+      </if>
+      <if test="vip != null">
+        vip = #{vip,jdbcType=INTEGER},
+      </if>
+      <if test="joblevel != null">
+        joblevel = #{joblevel,jdbcType=NVARCHAR},
+      </if>
+      <if test="local != null">
+        local = #{local,jdbcType=NVARCHAR},
+      </if>
+      <if test="applytype != null">
+        applytype = #{applytype,jdbcType=INTEGER},
+      </if>
+      <if test="workyear != null">
+        workyear = #{workyear,jdbcType=NVARCHAR},
+      </if>
+      <if test="zw != null">
+        ZW = #{zw,jdbcType=NVARCHAR},
+      </if>
+      <if test="xzlevel != null">
+        XZlevel = #{xzlevel,jdbcType=NVARCHAR},
+      </if>
+      <if test="lxtime != null">
+        LXtime = #{lxtime,jdbcType=DATE},
+      </if>
+      <if test="worktime != null">
+        worktime = #{worktime,jdbcType=DATE},
+      </if>
+      <if test="grjsname != null">
+        GRJSName = #{grjsname,jdbcType=NVARCHAR},
+      </if>
+      <if test="grjslevel != null">
+        GRJSlevel = #{grjslevel,jdbcType=INTEGER},
+      </if>
+      <if test="zyjsname1 != null">
+        ZYJSname1 = #{zyjsname1,jdbcType=NVARCHAR},
+      </if>
+      <if test="zyjslevel1 != null">
+        ZYJSLevel1 = #{zyjslevel1,jdbcType=INTEGER},
+      </if>
+      <if test="pzdate1 != null">
+        PZdate1 = #{pzdate1,jdbcType=DATE},
+      </if>
+      <if test="zclevel != null">
+        ZClevel = #{zclevel,jdbcType=NVARCHAR},
+      </if>
+      <if test="zyjsname2 != null">
+        ZYJSname2 = #{zyjsname2,jdbcType=NVARCHAR},
+      </if>
+      <if test="zyjslevel2 != null">
+        ZYJSLevel2 = #{zyjslevel2,jdbcType=INTEGER},
+      </if>
+      <if test="pzdate2 != null">
+        PZdate2 = #{pzdate2,jdbcType=DATE},
+      </if>
+      <if test="ndkhstatus != null">
+        NDKHstatus = #{ndkhstatus,jdbcType=NVARCHAR},
+      </if>
+      <if test="power != null">
+        power = #{power,jdbcType=INTEGER},
+      </if>
+    </set>
+    where Idcard = #{idcard,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hut.jsj.pojo.UserData">
+    update UserData
+    set teacherID = #{teacherid,jdbcType=NVARCHAR},
+      pwd = #{pwd,jdbcType=VARCHAR},
+      name = #{name,jdbcType=NVARCHAR},
+      sex = #{sex,jdbcType=NVARCHAR},
+      brith = #{brith,jdbcType=DATE},
+      MZ = #{mz,jdbcType=VARCHAR},
+      department = #{department,jdbcType=NVARCHAR},
+      departmentNo = #{departmentno,jdbcType=INTEGER},
+      template = #{template,jdbcType=INTEGER},
+      Flag = #{flag,jdbcType=INTEGER},
+      TzigeID = #{tzigeid,jdbcType=NVARCHAR},
+      health = #{health,jdbcType=NVARCHAR},
+      skilljob = #{skilljob,jdbcType=NVARCHAR},
+      getdate = #{getdate,jdbcType=DATE},
+      skillnum = #{skillnum,jdbcType=NVARCHAR},
+      teachernum = #{teachernum,jdbcType=NVARCHAR},
+      vip = #{vip,jdbcType=INTEGER},
+      joblevel = #{joblevel,jdbcType=NVARCHAR},
+      local = #{local,jdbcType=NVARCHAR},
+      applytype = #{applytype,jdbcType=INTEGER},
+      workyear = #{workyear,jdbcType=NVARCHAR},
+      ZW = #{zw,jdbcType=NVARCHAR},
+      XZlevel = #{xzlevel,jdbcType=NVARCHAR},
+      LXtime = #{lxtime,jdbcType=DATE},
+      worktime = #{worktime,jdbcType=DATE},
+      GRJSName = #{grjsname,jdbcType=NVARCHAR},
+      GRJSlevel = #{grjslevel,jdbcType=INTEGER},
+      ZYJSname1 = #{zyjsname1,jdbcType=NVARCHAR},
+      ZYJSLevel1 = #{zyjslevel1,jdbcType=INTEGER},
+      PZdate1 = #{pzdate1,jdbcType=DATE},
+      ZClevel = #{zclevel,jdbcType=NVARCHAR},
+      ZYJSname2 = #{zyjsname2,jdbcType=NVARCHAR},
+      ZYJSLevel2 = #{zyjslevel2,jdbcType=INTEGER},
+      PZdate2 = #{pzdate2,jdbcType=DATE},
+      NDKHstatus = #{ndkhstatus,jdbcType=NVARCHAR},
+      power = #{power,jdbcType=INTEGER}
+    where Idcard = #{idcard,jdbcType=VARCHAR}
+  </update>
+</mapper>

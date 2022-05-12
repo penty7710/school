@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hut.jsj.mapper.FileMapper">
+    <insert id="insert" parameterType="list">
+        insert into gsfile(filename,addr,uploadtime,text)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.filename},#{item.addr},#{item.uploadtime},#{item.text})
+        </foreach>
+    </insert>
+
+    <select id="findAll" resultType="File">
+        select * from gsfile where addr like concat('%','gsfile','%');
+    </select>
+
+    <delete id="delFile" parameterType="String">
+        delete from gsfile where filename = #{filename}
+    </delete>
+
+</mapper>

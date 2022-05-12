@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hut.jsj.mapper.WorkstatusMapper">
+    <insert id="insert" parameterType="list">
+        insert into workstatus(id,starttime,endtime,content,`count`,handlepeople,applytype,Idcard,IntoTime)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.id},#{item.starttime},#{item.endtime},#{item.content},#{item.count},#{item.handlepeople}
+            ,#{item.applytype},#{item.idcard},#{item.intotime})
+        </foreach>
+    </insert>
+
+    <delete id="delete" parameterType="string">
+        delete from workstatus where idcard= #{idcard}
+    </delete>
+
+
+</mapper>
